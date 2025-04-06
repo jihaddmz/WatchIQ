@@ -1,21 +1,54 @@
-import {Text, TouchableOpacity, View} from "react-native";
-import {Link} from "expo-router";
+import {ActivityIndicator, FlatList, Text, View} from "react-native";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "@/state/stores/store";
+import {useCallback} from "react";
+import fetchMoviesAction from "@/state/actions/FetchMoviesAction";
+import ItemMovie from "@/components/itemMovie";
+import {useFocusEffect} from "expo-router";
 
 export default function Index() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-        <Link href="../movie/123" asChild>
-            <TouchableOpacity>
-                <Text className="text-gray-500">Edit app/index.tsx to edit this screen.</Text>
-            </TouchableOpacity>
-        </Link>
+    const dispatch = useDispatch<AppDispatch>();
+    const {movies, loading, error} = useSelector((state: RootState) => state.movie);
 
-    </View>
-  );
+    useFocusEffect(
+        useCallback(() => {
+            dispatch(fetchMoviesAction());
+        }, [])
+    )
+
+    if (loading) {
+        return <View className="flex-1 bg-black">
+            <ActivityIndicator className="justify-center items-center flex-1" size="small" color="white"/>
+        </View>
+    }
+
+    if (error) {
+        return <View className="flex-1 bg-black">
+            <Text className="justify-center items-center flex-1 text-red-600">Error: {error}</Text>
+        </View>
+    }
+
+    return (
+        <View
+            className="flex-1 bg-black"
+        >
+            <View className="pt-10 ps-5">
+                <Text className="mb-5 text-white font-bold text-2xl">Movies</Text>
+            </View>
+
+            <FlatList
+                data={movies}
+                renderItem={({item}) => {
+                    return <ItemMovie {...item}/>
+                }}
+                keyExtractor={item => item.id.toString()}
+                numColumns={2}
+                columnWrapperStyle={{
+                    gap: 10,
+                    justifyContent: 'flex-start',
+                    marginBottom: 20
+                }}
+                showsVerticalScrollIndicator={false}/>
+        </View>
+    );
 }

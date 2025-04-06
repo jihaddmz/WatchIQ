@@ -7,6 +7,12 @@ import {Text} from "react-native";
 export default function  _layout(){
     return <Tabs screenOptions={({route}) => ({
         headerShown: false,
+        tabBarActiveTintColor: "#D5372F",
+        tabBarStyle: {
+            borderTopWidth: 0,
+            backgroundColor: "#000000",
+            dividerColor: "#000000",
+        },
         tabBarIcon: ({focused , color, size}) => {
             let iconName: string;
             if (route.name === "index") {
@@ -27,7 +33,7 @@ export default function  _layout(){
             } else {
                 label = "Search"
             }
-            return focused ? <Text className="text-sm">{label}</Text> : null}
+            return focused ? <Text className="text-sm text-gray-500">{label}</Text> : null}
     })}>
     </Tabs>
 }
