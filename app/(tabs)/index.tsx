@@ -4,6 +4,7 @@ import {AppDispatch, RootState} from "@/state/stores/store";
 import {useCallback} from "react";
 import fetchMoviesAction from "@/state/actions/FetchMoviesAction";
 import ItemMovie from "@/components/itemMovie";
+import {appRoute, setAppRoute} from "@/core/Helpers";
 import {useFocusEffect} from "expo-router";
 
 export default function Index() {
@@ -12,9 +13,14 @@ export default function Index() {
 
     useFocusEffect(
         useCallback(() => {
-            dispatch(fetchMoviesAction());
-        }, [])
-    )
+
+            if (!appRoute || appRoute === 'Trending') {
+                dispatch(fetchMoviesAction());
+            }
+
+            setAppRoute("Index");
+
+        }, [dispatch]))
 
     if (loading) {
         return <View className="flex-1 bg-black">

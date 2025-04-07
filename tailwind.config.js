@@ -11,6 +11,12 @@ module.exports = {
         background: "#000000",
         card: "#1C1C1E",
       },
+      width: {
+        15: "60"
+      },
+      height: {
+        15: "60"
+      }
     },
   },
   plugins: [],

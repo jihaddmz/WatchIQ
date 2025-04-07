@@ -4,9 +4,10 @@ import {AppDispatch, RootState} from "@/state/stores/store";
 import {useCallback, useEffect} from "react";
 import fetchTrendingMoviesAction from "@/state/actions/FetchTrendingMoviesAction";
 import ItemTrendingMovie from "@/components/ItemTrendingMovie";
-import {useFocusEffect} from "expo-router";
+import {useFocusEffect, useNavigation} from "expo-router";
 import fetchMoviesAction from "@/state/actions/FetchMoviesAction";
 import FetchTrendingMoviesAction from "@/state/actions/FetchTrendingMoviesAction";
+import {setAppRoute} from "@/core/Helpers";
 
 const Trending = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -14,6 +15,7 @@ const Trending = () => {
 
     useFocusEffect(
         useCallback(() => {
+            setAppRoute("Trending");
             dispatch(FetchTrendingMoviesAction());
         }, [])
     )

@@ -30,3 +30,26 @@ export const fetchTrendingMoviesApi = async (): Promise<Movie[]> => {
     const data = await response.json();
     return data.results;
 }
+
+export const fetchMovieDetailsApi = async (id: number): Promise<MovieDetails> => {
+    const response = await fetch(
+        `${CONFIG.BASE_URL}/movie/${id}`,
+        {headers: CONFIG.headers});
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch movie details from api ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+}
+
+export const fetchMovieCastApi = async (id: number): Promise<CastMember[]> => {
+    const response = await fetch(`${CONFIG.BASE_URL}/movie/${id}/credits`, {headers: CONFIG.headers});
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch movie cast from api ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.cast;
+}
