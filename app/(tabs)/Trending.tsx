@@ -1,13 +1,11 @@
 import {ActivityIndicator, FlatList, Text, View} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/state/stores/store";
-import {useCallback, useEffect} from "react";
-import fetchTrendingMoviesAction from "@/state/actions/FetchTrendingMoviesAction";
-import ItemTrendingMovie from "@/components/ItemTrendingMovie";
-import {useFocusEffect, useNavigation} from "expo-router";
-import fetchMoviesAction from "@/state/actions/FetchMoviesAction";
+import {useCallback} from "react";
 import FetchTrendingMoviesAction from "@/state/actions/FetchTrendingMoviesAction";
-import {setAppRoute} from "@/core/Helpers";
+import ItemTrendingMovie from "@/components/ItemTrendingMovie";
+import {useFocusEffect} from "expo-router";
+import {appRoute, setAppRoute} from "@/core/Helpers";
 
 const Trending = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -15,8 +13,10 @@ const Trending = () => {
 
     useFocusEffect(
         useCallback(() => {
+            if (appRoute === "Index") {
+                dispatch(FetchTrendingMoviesAction());
+            }
             setAppRoute("Trending");
-            dispatch(FetchTrendingMoviesAction());
         }, [])
     )
 

@@ -116,7 +116,7 @@ const MovieDetails = () => {
                         gap: 10
                     }} className="mt-3" horizontal={true} showsHorizontalScrollIndicator={false}>
                         {castMembers!.map((cast, index) => {
-                            return <View key={`${cast.id}`} className="flex-col items-center w-28">
+                            return <View key={`${cast.cast_id}`} className="flex-col items-center w-28">
                                 <View key={`${cast.id}`}
                                       className="bg-card rounded-full w-15 h-15 justify-center items-center">
                                     <Text key={index}
