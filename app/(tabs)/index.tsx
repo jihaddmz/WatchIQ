@@ -14,7 +14,7 @@ export default function Index() {
     useFocusEffect(
         useCallback(() => {
 
-            if (!appRoute || appRoute === 'Trending') {
+            if (!appRoute || appRoute === 'Trending' || appRoute === 'Search') {
                 dispatch(fetchMoviesAction());
             }
 

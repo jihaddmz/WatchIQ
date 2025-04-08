@@ -14,7 +14,7 @@ const ItemTrendingMovie = ({poster_path, vote_average, title, vote_count, id}: M
                         <View className="flex-row justify-between">
                             <View className="flex-row items-center">
                                 <Ionicons name="star" size={15} color={"yellow"}/>
-                                <Text className="text-secondary font-bold ms-1">{vote_average.toFixed(1)}</Text>
+                                <Text className="text-secondary font-bold ms-1 text-secondary-100">{vote_average.toFixed(1)}</Text>
                             </View>
 
                             {/* the vote count card */}

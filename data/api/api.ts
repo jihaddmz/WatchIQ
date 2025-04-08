@@ -53,3 +53,16 @@ export const fetchMovieCastApi = async (id: number): Promise<CastMember[]> => {
     const data = await response.json();
     return data.cast;
 }
+
+export const SearchMovieApi = async (query: string): Promise<Movie[]> => {
+    const response = await fetch(
+        `${CONFIG.BASE_URL}/search/movie?query=${query}`,
+        {headers: CONFIG.headers});
+
+    if (!response.ok) {
+        throw new Error(`Failed to search movie from api ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.results;
+}

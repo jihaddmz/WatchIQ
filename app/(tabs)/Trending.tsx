@@ -13,7 +13,7 @@ const Trending = () => {
 
     useFocusEffect(
         useCallback(() => {
-            if (appRoute === "Index") {
+            if (appRoute === "Index" || appRoute === 'Search') {
                 dispatch(FetchTrendingMoviesAction());
             }
             setAppRoute("Trending");

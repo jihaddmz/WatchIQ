@@ -35,5 +35,8 @@ export default function  _layout(){
             }
             return focused ? <Text className="text-sm text-gray-500">{label}</Text> : null}
     })}>
+        <Tabs.Screen name={"index"}/>
+        <Tabs.Screen name={"Trending"}/>
+        <Tabs.Screen name={"Search"}/>
     </Tabs>
 }
