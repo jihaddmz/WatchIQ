@@ -5,11 +5,11 @@ const fetchTrendingMoviesAction = createAsyncThunk(
     'movies/fetchTrendingMovies',
     async (_, {rejectWithValue}) => {
         try {
-            const result = fetchTrendingMoviesApi();
+            const result = await fetchTrendingMoviesApi();
             return result;
         } catch (e) {
             const errorMsg = e instanceof Error ? e.message : new Error(`Failed to fetch trending movies`);
-             rejectWithValue(errorMsg);
+             return rejectWithValue(errorMsg);
         }
     }
 )

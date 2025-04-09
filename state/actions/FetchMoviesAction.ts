@@ -5,11 +5,11 @@ const fetchMoviesAction = createAsyncThunk(
     'movies/fetchMovies',
     async (_, {rejectWithValue}) => {
         try {
-            const result = fetchMoviesApi();
+            const result = await fetchMoviesApi();
             return result;
         } catch (e) {
             const errorMsg = e instanceof Error ? e.message : new Error("Manual error");
-             rejectWithValue(errorMsg);
+            return rejectWithValue(errorMsg);
         }
     }
 )

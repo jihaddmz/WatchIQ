@@ -6,6 +6,7 @@ import fetchMoviesAction from "@/state/actions/FetchMoviesAction";
 import ItemMovie from "@/components/itemMovie";
 import {appRoute, setAppRoute} from "@/core/Helpers";
 import {useFocusEffect} from "expo-router";
+import {resetMovies} from "@/state/reducers/movieSlice";
 
 export default function Index() {
     const dispatch = useDispatch<AppDispatch>();
@@ -13,26 +14,16 @@ export default function Index() {
 
     useFocusEffect(
         useCallback(() => {
+            dispatch(resetMovies());
+            setTimeout(() => {
+                if (!appRoute || appRoute === 'Trending' || appRoute === 'Search') {
+                    dispatch(fetchMoviesAction());
+                }
 
-            if (!appRoute || appRoute === 'Trending' || appRoute === 'Search') {
-                dispatch(fetchMoviesAction());
-            }
-
-            setAppRoute("Index");
+                setAppRoute("Index");
+            }, 100)
 
         }, [dispatch]))
-
-    if (loading) {
-        return <View className="flex-1 bg-black">
-            <ActivityIndicator className="justify-center items-center flex-1" size="small" color="white"/>
-        </View>
-    }
-
-    if (error) {
-        return <View className="flex-1 bg-black">
-            <Text className="justify-center items-center flex-1 text-red-600">Error: {error}</Text>
-        </View>
-    }
 
     return (
         <View
@@ -41,6 +32,14 @@ export default function Index() {
             <View className="pt-10 ps-5">
                 <Text className="mb-5 text-white font-bold text-2xl">Movies</Text>
             </View>
+
+            {loading && <View className="z-10 justify-center items-center absolute top-0 bottom-0 right-0 left-0">
+                <ActivityIndicator size="large" color="white"/>
+            </View>}
+
+            {error && <View className="z-10 justify-center items-center absolute top-0 bottom-0 right-0 left-0">
+                <Text className=" flex-1 text-red-600">Error: {error}</Text>
+            </View>}
 
             <FlatList
                 data={movies}

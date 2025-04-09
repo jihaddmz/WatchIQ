@@ -5,7 +5,7 @@ const SearchMovieAction = createAsyncThunk(
     "movies/searchMovie",
     async (query: string, {rejectWithValue}) => {
         try {
-            const result = SearchMovieApi(query);
+            const result = await SearchMovieApi(query);
             return result;
         } catch (e) {
             const errorMsg = e instanceof Error ? e.message : "Failed to search movie in action";

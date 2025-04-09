@@ -6,6 +6,7 @@ import FetchTrendingMoviesAction from "@/state/actions/FetchTrendingMoviesAction
 import ItemTrendingMovie from "@/components/ItemTrendingMovie";
 import {useFocusEffect} from "expo-router";
 import {appRoute, setAppRoute} from "@/core/Helpers";
+import {resetMovies} from "@/state/reducers/movieSlice";
 
 const Trending = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -13,29 +14,33 @@ const Trending = () => {
 
     useFocusEffect(
         useCallback(() => {
-            if (appRoute === "Index" || appRoute === 'Search') {
-                dispatch(FetchTrendingMoviesAction());
+            const execute = async () => {
+                if (appRoute === "Index" || appRoute === 'Search') {
+                    dispatch(FetchTrendingMoviesAction());
+                }
+                setAppRoute("Trending");
             }
-            setAppRoute("Trending");
+
+            dispatch(resetMovies());
+
+            setTimeout(() => {
+                execute();
+            }, 100)
         }, [])
     )
-
-    if (loading) {
-        return <View className="flex-1 bg-black">
-            <ActivityIndicator className="justify-center items-center flex-1" size="small" color="white"/>
-        </View>
-    }
-
-    if (error) {
-        return <View className="flex-1 bg-black">
-            <Text className="justify-center items-center flex-1 text-red-600">Error: {error}</Text>
-        </View>
-    }
 
     return <View className="bg-black flex-1">
         <View className="pt-10 ps-5">
             <Text className="mb-5 text-white font-bold text-2xl">Trending Now</Text>
         </View>
+
+        {loading && <View className="z-10 justify-center items-center absolute top-0 bottom-0 right-0 left-0">
+            <ActivityIndicator size="large" color="white"/>
+        </View>}
+
+        {error && <View className="z-10 justify-center items-center absolute top-0 bottom-0 right-0 left-0">
+            <Text className=" flex-1 text-red-600">Error: {error}</Text>
+        </View>}
 
         <FlatList
             className="px-5"
