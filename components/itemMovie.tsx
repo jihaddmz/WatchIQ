@@ -8,7 +8,7 @@ const ItemMovie = ({poster_path, title, id}: Movie) => {
                 <TouchableOpacity>
                     <Image resizeMode={"cover"} source={{uri: `https://image.tmdb.org/t/p/w500${poster_path}`}}
                            className="w-full h-52 rounded-lg"/>
-                    <Text className="text-white font-bold mt-1">{title}</Text>
+                    <Text className="text-white font-bold mt-1 ms-2">{title}</Text>
                 </TouchableOpacity>
             </Link>
         </View>

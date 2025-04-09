@@ -11,6 +11,7 @@ import {resetMovies} from "@/state/reducers/movieSlice";
 export default function Index() {
     const dispatch = useDispatch<AppDispatch>();
     const {movies, loading, error} = useSelector((state: RootState) => state.movie);
+    let numberOfVisibleMovies = 0;
 
     useFocusEffect(
         useCallback(() => {
@@ -49,6 +50,14 @@ export default function Index() {
                 }}
                 keyExtractor={item => item.id.toString()}
                 numColumns={2}
+                // onViewableItemsChanged={(info) => {
+                //     numberOfVisibleMovies += info.changed.length
+                //     console.log(`the length is ${numberOfVisibleMovies}`);
+                // }}
+                // onScrollBeginDrag={(event) => {
+                //     console.log(`The event is ${event.nativeEvent.contentOffset.y}`)
+                //     console.log(`The event1 is ${event.nativeEvent.contentSize.height}`)
+                // }}
                 columnWrapperStyle={{
                     gap: 10,
                     justifyContent: 'flex-start',
