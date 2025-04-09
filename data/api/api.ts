@@ -36,7 +36,7 @@ export const fetchMovieDetailsApi = async (id: number): Promise<MovieDetails> =>
         `${CONFIG.BASE_URL}/movie/${id}`,
         {headers: CONFIG.headers});
 
-    if (!response.ok) {
+    if (!response.ok || response.type === "error") {
         throw new Error(`Failed to fetch movie details from api ${response.statusText}`);
     }
     const data = await response.json();
@@ -46,7 +46,8 @@ export const fetchMovieDetailsApi = async (id: number): Promise<MovieDetails> =>
 export const fetchMovieCastApi = async (id: number): Promise<CastMember[]> => {
     const response = await fetch(`${CONFIG.BASE_URL}/movie/${id}/credits`, {headers: CONFIG.headers});
 
-    if (!response.ok) {
+    if (!response.ok || response.type === "error") {
+        // console.log("Entered error");
         throw new Error(`Failed to fetch movie cast from api ${response.statusText}`);
     }
 

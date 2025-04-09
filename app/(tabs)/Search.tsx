@@ -53,20 +53,20 @@ const Search = () => {
 
             {
                 loading &&
-                <View className="z-10 justify-center items-center absolute top-0 bottom-0 start-0 end-0 bg-black/60">
+                <View className="z-10 justify-center items-center flex-1 bg-black/60">
                     <ActivityIndicator className={"text-primary"} size="large"/>
                 </View>
             }
 
             {
-                error &&
-                <View className="z-10 justify-center items-center absolute top-0 bottom-0 start-0 end-0">
-                    <Text className="justify-center items-center flex-1 text-red-600">Error: {error}</Text>
+                error != null &&
+                <View className="z-11 justify-center items-center flex-1">
+                    <Text className="text-red-600">Error: {error}</Text>
                 </View>
             }
 
             {
-                movies.length === 0 &&
+                movies.length === 0 && error == null &&
                 <View className="z-10 justify-center items-center flex-1">
                     <Text
                         className="text-red-600">{text ? "No results found" : "Use the search bar to search for movies."}</Text>

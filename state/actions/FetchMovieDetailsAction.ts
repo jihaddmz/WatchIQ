@@ -12,7 +12,7 @@ const FetchMovieDetailsAction = createAsyncThunk(
                 re: await castMembers
             };
         } catch (e) {
-            const errorMsg = e instanceof Error || new Error("Failed to fetch movie details in action");
+            const errorMsg = e instanceof Error ? e.message : "Failed to fetch movie details in action";
             return rejectWithValue(errorMsg);
         }
     }

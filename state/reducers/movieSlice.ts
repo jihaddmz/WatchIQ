@@ -1,8 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import fetchMoviesAction from "@/state/actions/FetchMoviesAction";
 import fetchTrendingMoviesAction from "@/state/actions/FetchTrendingMoviesAction";
-import fetchMovieDetailsAction from "@/state/actions/FetchMovieDetailsAction";
-import FetchMovieDetailsAction from "@/state/actions/FetchMovieDetailsAction";
 import searchMovieAction from "@/state/actions/SearchMovieAction";
 
 interface Props {

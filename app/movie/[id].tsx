@@ -29,9 +29,9 @@ const MovieDetails = () => {
         </View>
     }
 
-    if (error) {
-        return <View className="flex-1 bg-black">
-            <Text className="justify-center items-center flex-1 text-red-600">Error: {error}</Text>
+    if (error != null) {
+        return <View className="flex-1 bg-black justify-center items-center">
+            <Text className="text-red-600">Error: {error}</Text>
         </View>
     }
 

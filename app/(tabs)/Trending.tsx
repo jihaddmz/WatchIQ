@@ -34,25 +34,27 @@ const Trending = () => {
             <Text className="mb-5 text-white font-bold text-2xl">Trending Now</Text>
         </View>
 
-        {loading && <View className="z-10 justify-center items-center absolute top-0 bottom-0 right-0 left-0">
+        {loading && <View className="z-10 flex-1 justify-center items-center">
             <ActivityIndicator size="large" color="white"/>
         </View>}
 
         {error && <View className="z-10 justify-center items-center absolute top-0 bottom-0 right-0 left-0">
-            <Text className=" flex-1 text-red-600">Error: {error}</Text>
+            <Text className="text-red-600">Error: {error}</Text>
         </View>}
 
-        <FlatList
-            className="px-5"
-            data={movies}
-            renderItem={({item}) => {
-                return <ItemTrendingMovie {...item}/>
-            }}
-            contentContainerStyle={{
-                gap: 10
-            }}
-            keyExtractor={item => item.id.toString()}
-            showsVerticalScrollIndicator={false}/>
+        {movies.length > 0 &&
+            <FlatList
+                className="px-5"
+                data={movies}
+                renderItem={({item}) => {
+                    return <ItemTrendingMovie {...item}/>
+                }}
+                contentContainerStyle={{
+                    gap: 10
+                }}
+                keyExtractor={item => item.id.toString()}
+                showsVerticalScrollIndicator={false}/>
+        }
 
     </View>;
 };

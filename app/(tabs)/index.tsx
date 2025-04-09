@@ -33,14 +33,15 @@ export default function Index() {
                 <Text className="mb-5 text-white font-bold text-2xl">Movies</Text>
             </View>
 
-            {loading && <View className="z-10 justify-center items-center absolute top-0 bottom-0 right-0 left-0">
+            {loading && <View className="z-10 justify-center items-center flex-1">
                 <ActivityIndicator size="large" color="white"/>
             </View>}
 
-            {error && <View className="z-10 justify-center items-center absolute top-0 bottom-0 right-0 left-0">
-                <Text className=" flex-1 text-red-600">Error: {error}</Text>
+            {error && <View className="z-10 justify-center items-center flex-1">
+                <Text className=" text-red-600">Error: {error}</Text>
             </View>}
 
+            { movies.length > 0 &&
             <FlatList
                 data={movies}
                 renderItem={({item}) => {
@@ -54,6 +55,7 @@ export default function Index() {
                     marginBottom: 20
                 }}
                 showsVerticalScrollIndicator={false}/>
+            }
         </View>
     );
 }
