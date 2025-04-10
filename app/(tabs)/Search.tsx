@@ -24,7 +24,9 @@ const Search = () => {
         useCallback(
             () => {
                 if (mostSearchedMovies.length === 0)
-                    dispatch(FetchMostSearchedMoviesAction());
+                    setTimeout(() => {
+                        dispatch(FetchMostSearchedMoviesAction());
+                    }, 100)
 
                 return () => {
                     setText("")

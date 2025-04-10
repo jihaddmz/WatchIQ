@@ -2,7 +2,7 @@ import {useFocusEffect, useLocalSearchParams, useRouter} from "expo-router";
 import {ActivityIndicator, ImageBackground, ScrollView, StyleSheet, Text, View} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/state/stores/store";
-import {useCallback} from "react";
+import {useCallback, useEffect} from "react";
 import fetchMovieDetailsAction from "@/state/actions/FetchMovieDetailsAction";
 import {Ionicons} from "@expo/vector-icons";
 import {LinearGradient} from "expo-linear-gradient";
@@ -13,15 +13,20 @@ const MovieDetails = () => {
     const {movieDetails, castMembers, loading, error} = useSelector((state: RootState) => state.movieDetails);
     const router = useRouter();
 
-    useFocusEffect(
-        useCallback(() => {
-
+    useEffect(() => {
+        setTimeout(() => {
             dispatch(fetchMovieDetailsAction(Number(id)));
+        }, 100)
+    }, [dispatch])
 
-            return () => {
-            }
-        }, [])
-    )
+    // useFocusEffect(
+    //     useCallback(() => {
+    //
+    //
+    //         return () => {
+    //         }
+    //     }, [])
+    // )
 
     if (loading) {
         return <View className="flex-1 bg-black">
