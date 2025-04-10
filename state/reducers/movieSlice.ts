@@ -6,6 +6,8 @@ import FetchMostSearchedMoviesAction from "@/state/actions/FetchMostSearchedMovi
 
 interface Props {
     movies: Movie[],
+    trendingMovies: Movie[],
+    searchedMovies: Movie[],
     mostSearchedMovies: MovieSearch[],
     noSearchResults: boolean,
     loading: boolean,
@@ -14,6 +16,8 @@ interface Props {
 
 const initialState: Props = {
     movies: [],
+    trendingMovies: [],
+    searchedMovies: [],
     mostSearchedMovies: [],
     noSearchResults: false,
     loading: false,
@@ -25,8 +29,8 @@ const movieSlice = createSlice(
         name: 'movie',
         initialState: initialState,
         reducers: {
-            resetMovies: (state) => {
-                state.movies = [];
+            resetSearchedMovies: (state) => {
+                state.searchedMovies = [];
             }
         },
         extraReducers: builder => {
@@ -57,7 +61,7 @@ const movieSlice = createSlice(
                 .addCase(fetchTrendingMoviesAction.fulfilled, (state, action) => {
                     state.loading = false;
                     state.error = null;
-                    state.movies = action.payload as Movie[];
+                    state.trendingMovies = action.payload as Movie[];
                 })
 
                 // search movie action
@@ -72,7 +76,7 @@ const movieSlice = createSlice(
                 .addCase(searchMovieAction.fulfilled, (state, action) => {
                     state.loading = false;
                     state.error = null;
-                    state.movies = action.payload as Movie[];
+                    state.searchedMovies = action.payload as Movie[];
                     state.noSearchResults = (action.payload as Movie[]).length === 0;
                 })
 
@@ -95,5 +99,5 @@ const movieSlice = createSlice(
     }
 )
 
-export const {resetMovies} = movieSlice.actions;
+export const {resetSearchedMovies} = movieSlice.actions;
 export default movieSlice.reducer;

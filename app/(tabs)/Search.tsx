@@ -5,8 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/state/stores/store";
 import SearchMovieAction from "@/state/actions/SearchMovieAction";
 import ItemSearchMovie from "@/components/ItemSearchMovie";
-import {resetMovies} from "@/state/reducers/movieSlice";
-import {appRoute, setAppRoute} from "@/core/Helpers";
+import {resetSearchedMovies} from "@/state/reducers/movieSlice";
 import {Link, useFocusEffect} from "expo-router";
 import FetchMostSearchedMoviesAction from "@/state/actions/FetchMostSearchedMovies";
 
@@ -14,7 +13,7 @@ const Search = () => {
     const [text, setText] = useState("");
     const dispatch = useDispatch<AppDispatch>();
     const {
-        movies,
+        searchedMovies,
         mostSearchedMovies,
         noSearchResults,
         loading,
@@ -24,19 +23,11 @@ const Search = () => {
     useFocusEffect(
         useCallback(
             () => {
-                if (appRoute === "Trending" || appRoute === "Index") {
-                    setText("");
-                    dispatch(resetMovies());
-
-                }
-
-                setAppRoute("Search");
-
-                console.log(`The size is ${mostSearchedMovies.length}`);
                 if (mostSearchedMovies.length === 0)
                     dispatch(FetchMostSearchedMoviesAction());
 
                 return () => {
+                    setText("")
                 }
             }, [mostSearchedMovies]
         )
@@ -50,7 +41,7 @@ const Search = () => {
                     dispatch(SearchMovieAction(text));
                 }, 200)
             } else
-                dispatch(resetMovies())
+                dispatch(resetSearchedMovies())
         }, 700)
 
         return () => clearTimeout(timeout);
@@ -81,12 +72,12 @@ const Search = () => {
             }
 
             {/* Showing the most searched movies when there is no search results */}
-            {movies.length > 0 ?
+            {searchedMovies.length > 0 ?
                 <FlatList className="mt-10" showsVerticalScrollIndicator={false} contentContainerStyle={{
                     gap: 10
                 }}
                           keyExtractor={item => item.id.toString()}
-                          data={movies} renderItem={({item}) => {
+                          data={searchedMovies} renderItem={({item}) => {
                     return <Link href={`/movie/${item.id}`} asChild>
                         <TouchableOpacity>
                             <ItemSearchMovie {...item}/>

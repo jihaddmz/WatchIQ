@@ -5,28 +5,23 @@ import {useCallback} from "react";
 import FetchTrendingMoviesAction from "@/state/actions/FetchTrendingMoviesAction";
 import ItemTrendingMovie from "@/components/ItemTrendingMovie";
 import {useFocusEffect} from "expo-router";
-import {appRoute, setAppRoute} from "@/core/Helpers";
-import {resetMovies} from "@/state/reducers/movieSlice";
 
 const Trending = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const {movies, loading, error} = useSelector((state: RootState) => state.movie);
+    const {trendingMovies, loading, error} = useSelector((state: RootState) => state.movie);
 
     useFocusEffect(
         useCallback(() => {
             const execute = async () => {
-                if (appRoute === "Index" || appRoute === 'Search') {
+                if (trendingMovies.length === 0) {
                     dispatch(FetchTrendingMoviesAction());
                 }
-                setAppRoute("Trending");
             }
-
-            dispatch(resetMovies());
 
             setTimeout(() => {
                 execute();
             }, 100)
-        }, [])
+        }, [trendingMovies])
     )
 
     return <View className="bg-black flex-1">
@@ -42,10 +37,10 @@ const Trending = () => {
             <Text className="text-red-600">Error: {error}</Text>
         </View>}
 
-        {movies.length > 0 &&
+        {trendingMovies.length > 0 &&
             <FlatList
                 className="px-5"
-                data={movies}
+                data={trendingMovies}
                 renderItem={({item}) => {
                     return <ItemTrendingMovie {...item}/>
                 }}

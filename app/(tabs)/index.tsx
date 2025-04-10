@@ -4,9 +4,7 @@ import {AppDispatch, RootState} from "@/state/stores/store";
 import {useCallback} from "react";
 import fetchMoviesAction from "@/state/actions/FetchMoviesAction";
 import ItemMovie from "@/components/itemMovie";
-import {appRoute, setAppRoute} from "@/core/Helpers";
 import {useFocusEffect} from "expo-router";
-import {resetMovies} from "@/state/reducers/movieSlice";
 
 export default function Index() {
     const dispatch = useDispatch<AppDispatch>();
@@ -15,16 +13,14 @@ export default function Index() {
 
     useFocusEffect(
         useCallback(() => {
-            dispatch(resetMovies());
             setTimeout(() => {
-                if (!appRoute || appRoute === 'Trending' || appRoute === 'Search') {
+                if (movies.length === 0) {
                     dispatch(fetchMoviesAction());
                 }
 
-                setAppRoute("Index");
             }, 100)
 
-        }, [dispatch]))
+        }, [movies]))
 
     return (
         <View
