@@ -58,7 +58,7 @@ const Search = () => {
 
     return (
         <View className="flex-1 bg-black pt-12 px-5">
-            <Text className="text-white text-2xl font-bold mb-10">Search</Text>
+            <Text className="text-white text-2xl font-bold mb-10">Search Movies</Text>
             <SearchBar value={text} onChangeText={(text) => {
                 setText(text);
             }}/>

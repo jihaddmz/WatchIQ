@@ -30,7 +30,7 @@ const Trending = () => {
     )
 
     return <View className="bg-black flex-1">
-        <View className="pt-10 ps-5">
+        <View className="pt-12 ps-5">
             <Text className="mb-5 text-white font-bold text-2xl">Trending Now</Text>
         </View>
 
