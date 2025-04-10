@@ -1,3 +1,14 @@
+interface MovieSearch {
+    searchQuery: string;
+    id: number;
+    poster_path: string;
+    title: string;
+    release_date: string;
+    vote_average: number;
+    count: number;
+}
+
+
 interface Movie {
     poster_path: string;
     adult: boolean;

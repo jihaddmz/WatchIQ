@@ -2,15 +2,20 @@ import {createSlice} from "@reduxjs/toolkit";
 import fetchMoviesAction from "@/state/actions/FetchMoviesAction";
 import fetchTrendingMoviesAction from "@/state/actions/FetchTrendingMoviesAction";
 import searchMovieAction from "@/state/actions/SearchMovieAction";
+import FetchMostSearchedMoviesAction from "@/state/actions/FetchMostSearchedMovies";
 
 interface Props {
     movies: Movie[],
+    mostSearchedMovies: MovieSearch[],
+    noSearchResults: boolean,
     loading: boolean,
     error: string | null,
 }
 
 const initialState: Props = {
     movies: [],
+    mostSearchedMovies: [],
+    noSearchResults: false,
     loading: false,
     error: null,
 }
@@ -68,6 +73,23 @@ const movieSlice = createSlice(
                     state.loading = false;
                     state.error = null;
                     state.movies = action.payload as Movie[];
+                    state.noSearchResults = (action.payload as Movie[]).length === 0;
+                })
+
+                // most searched movies
+                .addCase(FetchMostSearchedMoviesAction.pending, (state) => {
+                    state.loading = true;
+                    state.error = null;
+                })
+                .addCase(FetchMostSearchedMoviesAction.rejected, (state, action) => {
+                    state.loading = false;
+                    state.mostSearchedMovies = [];
+                    state.error = action.payload as string;
+                })
+                .addCase(FetchMostSearchedMoviesAction.fulfilled, (state, action) => {
+                    state.loading = false;
+                    state.error = null;
+                    state.mostSearchedMovies = action.payload as MovieSearch[];
                 })
         }
     }
