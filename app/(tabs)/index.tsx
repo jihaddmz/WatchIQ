@@ -26,7 +26,7 @@ export default function Index() {
         <View
             className="flex-1 bg-black"
         >
-            <View className="pt-12 ps-5">
+            <View className="ps-5">
                 <Text className="mb-5 text-white font-bold text-2xl">Browse Movies</Text>
             </View>
 
